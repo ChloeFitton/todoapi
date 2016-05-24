@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(undefined, undefined, undefined, {
 	'dialect': 'sqlite',
-	'storage': __dirname + '/basicsqlitedatabase.sqlite'
+	'storage': __dirname + '/basic-sqlite-database.sqlite'
 });
 
 var Todo = sequelize.define('todo', {
@@ -21,7 +21,6 @@ var Todo = sequelize.define('todo', {
 
 var User = sequelize.define('user', {
 	email: Sequelize.STRING
-
 });
 
 Todo.belongsTo(User);
@@ -35,7 +34,7 @@ sequelize.sync({
 	User.findById(1).then(function (user) {
 		user.getTodos({
 			where: {
-				completed: true
+				completed: false
 			}
 		}).then(function (todos) {
 			todos.forEach(function (todo) {
@@ -43,16 +42,14 @@ sequelize.sync({
 			});
 		});
 	});
-	
-
 
 	// User.create({
-	// 	email: 'chloe@example.com'
+	// 	email: 'andrew@example.com'
 	// }).then(function () {
 	// 	return Todo.create({
 	// 		description: 'Clean yard'
 	// 	});
-	// }).then (function (todo) {
+	// }).then(function (todo) {
 	// 	User.findById(1).then(function (user) {
 	// 		user.addTodo(todo);
 	// 	});
